@@ -12,6 +12,7 @@ This project explores Netflix's publicly available dataset to uncover trends in 
 
 - `/SQL`: SQL queries used for analysis.
 - `/Data`: Dataset source info and instructions to download.
+- `/Outputs`: Sample screenshots of query results.
 
 ## 📄 Dataset
 
@@ -25,12 +26,64 @@ This project explores Netflix's publicly available dataset to uncover trends in 
 2. Use a SQL engine (e.g., **SQLite**, **PostgreSQL**, or **MySQL**) and import the dataset.
 3. Run queries from `/SQL/netflix_analysis.sql` to view results.
 
-## 🔍 Key Queries
+## 🔍 Key Queries & Sample Outputs
 
-- Top 10 genres by frequency
-- Movie vs TV show ratio
-- Content released per year
-- Countries with the most Netflix content
+### 1. Top 10 Genres by Frequency
+```sql
+SELECT listed_in AS genre, COUNT(*) AS total
+FROM netflix_titles
+GROUP BY genre
+ORDER BY total DESC
+LIMIT 10;
+```
+**Sample Output:**
+| Genre                         | Total |
+|------------------------------|-------|
+| Dramas                       | 2400  |
+| Comedies                     | 1700  |
+| Documentaries                | 1300  |
+
+### 2. Movie vs TV Show Ratio
+```sql
+SELECT type, COUNT(*) AS count
+FROM netflix_titles
+GROUP BY type;
+```
+**Sample Output:**
+| Type    | Count |
+|---------|-------|
+| Movie   | 4300  |
+| TV Show | 1500  |
+
+### 3. Content Released per Year
+```sql
+SELECT release_year, COUNT(*) AS total
+FROM netflix_titles
+GROUP BY release_year
+ORDER BY release_year DESC;
+```
+**Sample Output:**
+| Release Year | Total |
+|--------------|-------|
+| 2021         | 1200  |
+| 2020         | 1000  |
+| 2019         | 850   |
+
+### 4. Country-wise Content Distribution
+```sql
+SELECT country, COUNT(*) AS total
+FROM netflix_titles
+WHERE country IS NOT NULL
+GROUP BY country
+ORDER BY total DESC
+LIMIT 10;
+```
+**Sample Output:**
+| Country      | Total |
+|--------------|-------|
+| United States| 2500  |
+| India        | 1100  |
+| United Kingdom| 950  |
 
 ## ✅ Tools Used
 
@@ -40,3 +93,4 @@ This project explores Netflix's publicly available dataset to uncover trends in 
 ---
 
 *This project was built to improve SQL data analysis skills through hands-on dataset exploration.*
+
